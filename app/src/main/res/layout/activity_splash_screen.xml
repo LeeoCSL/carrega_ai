@@ -9,7 +9,8 @@
     tools:context="br.com.carregai.carregaai.SplashScreen">
 
     <ImageView
-        android:src="@mipmap/logo_inicial"
+        android:id="@+id/img_logo"
+        android:src="@mipmap/logo_inicial_circulo"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
