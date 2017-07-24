@@ -9,6 +9,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import java.util.List;
 import java.util.prefs.PreferenceChangeListener;
@@ -48,11 +49,10 @@ public class MyPreferencesActivity extends PreferenceActivity
             mSaldo.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    Log.i("novo", (String)newValue);
                     return false;
                 }
             });
-
-
         }
     }
 }
