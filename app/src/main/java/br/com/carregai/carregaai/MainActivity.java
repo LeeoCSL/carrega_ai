@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch(item.getItemId()){
             case R.id.menu_configuracoes:
+                startActivity(new Intent(this, MyPreferencesActivity.class));
                 return true;
             case R.id.menu_logout:
                 logout();
