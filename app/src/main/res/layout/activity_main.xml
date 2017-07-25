@@ -28,22 +28,22 @@
             android:id="@+id/textView2" />
 
         <Button
-            android:layout_marginTop="2dp"
+            android:id="@+id/btn_saldo_atual"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
             android:layout_below="@+id/textView2"
-            android:textSize="36sp"
-            android:textColor="#FFFFFF"
+            android:layout_marginTop="2dp"
             android:background="@drawable/blue_background"
             android:gravity="center"
             android:text="R$: 00,00"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:id="@+id/textView3" />
+            android:textColor="#FFFFFF"
+            android:textSize="36sp" />
 
         <TextView
             android:layout_marginTop="2dp"
-            android:layout_below="@id/textView3"
-            android:layout_alignEnd="@+id/textView3"
-            android:layout_alignRight="@+id/textView3"
+            android:layout_below="@id/btn_saldo_atual"
+            android:layout_alignEnd="@+id/btn_saldo_atual"
+            android:layout_alignRight="@+id/btn_saldo_atual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/green_background"
@@ -57,12 +57,12 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/white_background"
-            android:text="Valor Diário"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView4" />
+            android:background="@drawable/white_background"
+            android:text="Gasto Diário"
+            android:textColor="@color/colorPrimary" />
 
         <LinearLayout
             android:layout_marginTop="2dp"
@@ -72,25 +72,32 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/blue_background"
-                android:text="R$: 00,00"
+                android:id="@+id/btn_valor_diario"
                 android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_weight="1" />
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_background"
+                android:onClick="valorDiario"
+                android:text="R$: 00,00"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
             <Button
-                android:layout_marginLeft="8dp"
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/blue_background"
-                android:text="DIAS DE USO"
                 android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_weight="1" />
+                android:layout_height="56dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_background"
+                android:onClick="selectDays"
+                android:text="DIAS DE USO"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>
+
+    <include
+        android:id="@+id/dias_semana"
+        layout="@layout/days_week" />
 
     <RelativeLayout
         android:padding="8dp"
@@ -125,22 +132,24 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:textSize="24sp"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/blue_background"
-                android:text="R$: 20,00"
+                android:id="@+id/btn_valor_recarga"
                 android:layout_width="0dp"
-                android:layout_height="64dp"
-                android:layout_weight="1" />
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_background"
+                android:onClick="valorRecarga"
+                android:text="R$: 20,00"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp" />
 
             <Button
                 android:layout_marginLeft="8dp"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/blue_background"
                 android:text="R$: 3,80"
                 android:layout_width="0dp"
-                android:layout_height="64dp"
+                android:layout_height="56dp"
                 android:layout_weight="1" />
         </LinearLayout>
     </RelativeLayout>

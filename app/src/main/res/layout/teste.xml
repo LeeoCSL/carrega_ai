@@ -36,12 +36,12 @@
             android:text="R$: 00,00"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:id="@+id/textView3" />
+            android:id="@+id/btn_saldo_atual" />
 
         <TextView
-            android:layout_below="@id/textView3"
-            android:layout_alignEnd="@+id/textView3"
-            android:layout_alignRight="@+id/textView3"
+            android:layout_below="@id/btn_saldo_atual"
+            android:layout_alignEnd="@+id/btn_saldo_atual"
+            android:layout_alignRight="@+id/btn_saldo_atual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/white_background"

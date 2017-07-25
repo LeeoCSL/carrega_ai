@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
+    android:padding="2dp"
+    android:background="@drawable/gray_background"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/segunda_feira"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Seg" />
+
+    <TextView
+        android:id="@+id/terca_feira"
+        android:layout_marginLeft="4dp"
+        android:text="Ter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/quarta_feira"
+        android:layout_marginLeft="4dp"
+        android:text="Qua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/quinta_feira"
+        android:layout_marginLeft="4dp"
+        android:text="Qui"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/sexta_feira"
+        android:layout_marginLeft="4dp"
+        android:text="Sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/sabado"
+        android:layout_marginLeft="4dp"
+        android:text="Sab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/domingo"
+        android:layout_marginLeft="4dp"
+        android:text="Dom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>
