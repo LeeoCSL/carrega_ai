@@ -2,12 +2,14 @@ package br.com.carregai.carregaai;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -36,7 +38,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 
+        String nome = SP.getString("saldo", "");
+
+        Toast.makeText(this, nome, Toast.LENGTH_LONG).show();
     }
 
     @Override

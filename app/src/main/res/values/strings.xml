@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Carrega Ai</string>
+
+    <string-array name="dias_semana">
+        <item>Segunda-Feira</item>
+        <item>Terça-Feira</item>
+        <item>Quarta-Feira</item>
+        <item>Quinta-Feira</item>
+        <item>Sexta-Feira</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
+    </string-array>
+
+    <string-array name="dias_semana_key">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+    </string-array>
 </resources>

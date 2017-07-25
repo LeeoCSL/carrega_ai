@@ -1,5 +1,7 @@
 package br.com.carregai.carregaai;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.preference.CheckBoxPreference;
@@ -8,6 +10,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
@@ -49,10 +52,35 @@ public class MyPreferencesActivity extends PreferenceActivity
             mSaldo.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    Log.i("novo", (String)newValue);
-                    return false;
+                    saveChanges("saldo", (String)newValue);
+                    return true;
                 }
             });
+
+            mValorDiario.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    saveChanges("valor_diario", (String)newValue);
+                    return true;
+                }
+            });
+
+            mValorRecarga.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    saveChanges("valor_recarga", (String)newValue);
+                    return true;
+                }
+            });
+        }
+
+        private void saveChanges(String key, String value){
+            SharedPreferences preferences =
+                    PreferenceManager.getDefaultSharedPreferences(getActivity());
+
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putString(key, value);
+            editor.commit();
         }
     }
 }

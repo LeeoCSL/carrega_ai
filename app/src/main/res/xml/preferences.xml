@@ -20,6 +20,8 @@
         android:title="Dias de utilização">
 
         <ListPreference
+            android:entries="@array/dias_semana"
+            android:entryValues="@array/dias_semana_key"
             android:key="dias_da_semana"
             android:title="Dias da semana"
             android:summary="Dias em que você utiliza seu bilhete"/>
