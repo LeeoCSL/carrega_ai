@@ -23,6 +23,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.util.zip.Inflater;
 
 import fragments.DialogWeek;
@@ -33,12 +36,20 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button mValorDiario, mSaldoAtual, mValorRecarga;
+    private Button mValorDiario, mSaldoAtual, mValorRecarga, mTarifa;
 
     final String[] items = {"Segunda-Feira", "Terça-Feira","Quarta-Feira","Quinta-Feira",
             "Sexta-Feira","Sábado","Domingo"};
 
+    private String[] tarifas = {"Tarifa Comum", "Tarifa Estudante",
+                                "Integração Comum", "Integração Estudante"};
+    private double[] valores = {3.80, 1.90, 6.80, 3.40};
+
     private TextView[] mDiasView;
+
+    private int currentIndex = 0;
+
+    private TextView mTarifaTxt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         mValorDiario = (Button)findViewById(R.id.btn_valor_diario);
         mSaldoAtual = (Button)findViewById(R.id.btn_saldo_atual);
         mValorRecarga = (Button)findViewById(R.id.btn_valor_recarga);
+        mTarifa = (Button) findViewById(R.id.btn_tarifa);
 
         mDiasView = new TextView[items.length];
 
@@ -66,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         mDiasView[4] = (TextView)findViewById(R.id.sexta_feira);
         mDiasView[5] = (TextView)findViewById(R.id.sabado);
         mDiasView[6] = (TextView)findViewById(R.id.domingo);
+
+        mTarifaTxt = (TextView)findViewById(R.id.txt_tarifa);
     }
 
     @Override
@@ -78,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
 
         float valorDiario = sharedPref.getFloat("valor_diario", 0);
-        mValorDiario.setText("R$ " +String.valueOf(valorDiario));
+        mValorDiario.setText("R$ " +String.format("%.2f", valorDiario));
 
         float valorRecarga = sharedPref.getFloat("valor_recarga", 0);
-        mValorRecarga.setText("R$ " +valorRecarga);
+        mValorRecarga.setText("R$ " +String.format("%.2f", valorRecarga));
 
         float saldoAtual = sharedPref.getFloat("saldo_atual", 0);
-        mSaldoAtual.setText("R$ " +saldoAtual);
+        mSaldoAtual.setText("R$ " +String.format("%.2f", saldoAtual));
 
         for(int i = 0; i < items.length; i++){
             String dia = items[i].toLowerCase();
@@ -154,9 +168,9 @@ public class MainActivity extends AppCompatActivity {
                 float saldo = Float.parseFloat(saldoInput);
 
                 float saldoFinal = saldo + value;
-                mSaldoAtual.setText("R$ " + saldoFinal);
+                mSaldoAtual.setText("R$ " + String.format("%.2f", saldoFinal));
 
-                mValorRecarga.setText("R$ " + value);
+                mValorRecarga.setText("R$ " + String.format("%.2f", value));
 
                 SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -194,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                 editor.putFloat("valor_diario", value);
                 editor.commit();
 
-                mValorDiario.setText("R$ " +value);
+                mValorDiario.setText("R$ " + String.format("%.2f", value));
             }
         });
 
@@ -206,5 +220,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    public void mudar(View v){
+
+        mTarifaTxt.setText(tarifas[currentIndex]);
+        mTarifa.setText("R$ " + String.format("%.2f", valores[currentIndex]));
+
+        currentIndex++;
+
+        if(currentIndex > tarifas.length - 1)
+            currentIndex = 0;
     }
 }
