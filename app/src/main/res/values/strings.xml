@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Carrega Ai</string>
+    <string name="facebook_app_id">107174253284031</string>
+    <string name="fb_login_protocol_scheme">fb107174253284031</string>
 
     <string-array name="dias_semana">
         <item>Segunda-Feira</item>
