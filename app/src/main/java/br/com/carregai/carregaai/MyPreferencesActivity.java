@@ -22,6 +22,8 @@ import java.util.prefs.PreferenceChangeListener;
  */
 public class MyPreferencesActivity extends PreferenceActivity
 {
+    private static boolean firstOpen = true;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,44 +33,19 @@ public class MyPreferencesActivity extends PreferenceActivity
 
     public static class MyPreferencesFragment extends PreferenceFragment
     {
-        private EditTextPreference mSaldo, mValorDiario, mValorRecarga;
-        private CheckBoxPreference mRecarga;
-        private ListPreference mDiasDaSemana;
+        private EditTextPreference mViagemExtra;
 
         @Override
         public void onCreate(@Nullable Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
 
-            mSaldo = (EditTextPreference)findPreference("saldo");
-            mValorDiario = (EditTextPreference)findPreference("valor_diario");
+            mViagemExtra = (EditTextPreference)findPreference("viagem_extra");
 
-            mDiasDaSemana = (ListPreference)findPreference("dias_da_semana");
-
-            mValorRecarga = (EditTextPreference)findPreference("valor_recarga");
-
-            mRecarga = (CheckBoxPreference)findPreference("recarga");
-
-            mSaldo.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            mViagemExtra.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
                 @Override
                 public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    saveChanges("saldo", (String)newValue);
-                    return true;
-                }
-            });
-
-            mValorDiario.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    saveChanges("valor_diario", (String)newValue);
-                    return true;
-                }
-            });
-
-            mValorRecarga.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-                @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
-                    saveChanges("valor_recarga", (String)newValue);
+                    saveChanges("viagem_extra", (String)newValue);
                     return true;
                 }
             });

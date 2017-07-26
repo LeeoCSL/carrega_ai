@@ -3,43 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="Saldo">
+        android:title="Viagem">
 
         <EditTextPreference
-            android:key="saldo"
-            android:title="Saldo"
-            android:summary="Saldo atual do bilhete"/>
-
-        <EditTextPreference
-            android:key="valor_diario"
-            android:title="Valor Diário"
-            android:summary="Valor utilizado diariamente"/>
+            android:key="viagem_extra"
+            android:title="Viagem Extra"
+            android:summary="Configure o valor da viagem extra."/>
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:title="Dias de utilização">
-
-        <ListPreference
-            android:entries="@array/dias_semana"
-            android:entryValues="@array/dias_semana_key"
-            android:key="dias_da_semana"
-            android:title="Dias da semana"
-            android:summary="Dias em que você utiliza seu bilhete"/>
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:title="Notificações">
-
-        <EditTextPreference
-            android:key="valor_recarga"
-            android:title="Valor recarga"
-            android:summary="Valor para receber notificações de recarga do bilhete"/>
-
-        <CheckBoxPreference
-            android:key="recarga"
-            android:title="Tarifação"
-            android:summary="Receba notificação diária da tarifação do bilhete"/>
-
-    </PreferenceCategory>
 </PreferenceScreen>

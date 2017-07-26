@@ -52,6 +52,13 @@ public class LoginActivity extends AppCompatActivity {
         mPassword = (EditText)findViewById(R.id.input_password);
 
         mLoginFacebook = (LoginButton)findViewById(R.id.login_fb);
+
+        if(mAuth.getCurrentUser() != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        }
     }
 
     public void login(View v){
@@ -157,5 +164,4 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
     }
-
 }

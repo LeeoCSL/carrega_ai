@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTarifaTxt;
 
+    private boolean firstOpen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +88,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         updateButtons();
+    }
+
+    public void viagemExtra(View v){
+        if(firstOpen){
+            Toast.makeText(this, "Primeira vez", Toast.LENGTH_LONG).show();
+        }else{
+            Toast.makeText(this, "N eh a primeira vez", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void updateButtons(){
@@ -131,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
         switch(item.getItemId()){
             case R.id.menu_logout:
                 logout();
+                return true;
+
+            case R.id.menu_configuracoes:
+                startActivity(new Intent(MainActivity.this, MyPreferencesActivity.class));
                 return true;
         }
         return false;
