@@ -11,5 +11,4 @@
             android:title="Viagem Extra"
             android:summary="Configure o valor da viagem extra."/>
     </PreferenceCategory>
-
 </PreferenceScreen>
