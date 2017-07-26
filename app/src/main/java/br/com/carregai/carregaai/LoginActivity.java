@@ -125,8 +125,8 @@ public class LoginActivity extends AppCompatActivity {
     private void handleFacebookAcessToken(AccessToken token) {
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
 
-        mDialogFacebook.setTitle("Verificando credenciais");
-        mDialogFacebook.setMessage("Por favor, aguarde enquanto confirmamos seu login.");
+        mDialogFacebook.setTitle(getString(R.string.verificando_credenciais));
+        mDialogFacebook.setMessage(getString(R.string.dialog_message));
         mDialogFacebook.setCanceledOnTouchOutside(true);
         mDialogFacebook.show();
 
@@ -148,16 +148,14 @@ public class LoginActivity extends AppCompatActivity {
                         mDialog.dismiss();
 
                         if (e.getClass() == FirebaseAuthUserCollisionException.class) {
-                            Toast.makeText(LoginActivity.this, "Essa conta do facebook já esta sendo " +
-                                    "usada por outro e-mail.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, R.string.error_login_2, Toast.LENGTH_LONG).show();
                             LoginManager.getInstance().logOut();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Algum erro ocorreu. Tente novamente mais tarde.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(LoginActivity.this, R.string.error_login_1, Toast.LENGTH_LONG).show();
                         }
                         e.printStackTrace();
                     }
                 });
-
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

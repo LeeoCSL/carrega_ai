@@ -28,6 +28,7 @@ import org.w3c.dom.Text;
 import java.text.DecimalFormat;
 import java.util.zip.Inflater;
 
+import fragments.DialogViagemExtra;
 import fragments.DialogWeek;
 
 public class MainActivity extends AppCompatActivity {
@@ -91,10 +92,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void viagemExtra(View v){
-        if(firstOpen){
-            Toast.makeText(this, "Primeira vez", Toast.LENGTH_LONG).show();
+
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        float value = Float.parseFloat(sharedPref.getString("viagem_extra", "0"));
+
+        if(value == 0){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            DialogViagemExtra dialog = new DialogViagemExtra();
+            dialog.show(fragmentManager, "viagens_extra");
         }else{
-            Toast.makeText(this, "N eh a primeira vez", Toast.LENGTH_LONG).show();
+            SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+            float saldoAtual = sp.getFloat("saldo_atual", 0);
+            saldoAtual -= value;
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putFloat("saldo_atual", saldoAtual);
+            editor.commit();
+            mSaldoAtual.setText("R$ " +String.format("%.2f", saldoAtual));
+
+            Toast.makeText(this, "Seu saldo foi atualizado. [Viagem Extra: R$ " +value+" ]", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -215,7 +231,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                float value = Float.parseFloat(input.getText().toString());
+                float value = Float.parseFloat(input.getText().toString().replace(',','.'));
 
                 SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();

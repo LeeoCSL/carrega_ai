@@ -6,6 +6,7 @@
         android:title="Viagem">
 
         <EditTextPreference
+            android:inputType="numberDecimal"
             android:key="viagem_extra"
             android:title="Viagem Extra"
             android:summary="Configure o valor da viagem extra."/>

@@ -2,6 +2,10 @@
     <string name="app_name">Carrega Ai</string>
     <string name="facebook_app_id">107174253284031</string>
     <string name="fb_login_protocol_scheme">fb107174253284031</string>
+    <string name="error_login_1">Algum erro ocorreu. Tente novamente mais tarde.</string>
+    <string name="error_login_2">Essa conta do facebook já esta sendo usada por outro e-mail.</string>
+    <string name="verificando_credenciais">Verificando credenciais</string>
+    <string name="dialog_message">Por favor, aguarde enquanto confirmamos seu login.</string>
 
     <string-array name="dias_semana">
         <item>Segunda-Feira</item>
