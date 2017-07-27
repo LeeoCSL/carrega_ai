@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +23,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.w3c.dom.Text;
-
-import java.text.DecimalFormat;
-import java.util.zip.Inflater;
 
 import fragments.DialogViagemExtra;
 import fragments.DialogWeek;
@@ -57,8 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean lock;
 
-    private PendingIntent pendingIntent;
-    private AlarmManager manager;
+    private PendingIntent mPendingIntent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +63,8 @@ public class MainActivity extends AppCompatActivity {
         mToolbar = (Toolbar)findViewById(R.id.main_toolbar);
 
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.ic_action_name);
 
         mValorDiario = (Button)findViewById(R.id.btn_valor_diario);
         mSaldoAtual = (Button)findViewById(R.id.btn_saldo_atual);
@@ -99,25 +92,13 @@ public class MainActivity extends AppCompatActivity {
 
             NotificationEventReceiver.setupAlarm(getApplicationContext());
 
-
-/*            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
-            pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
-
-            startAlarm();*/
-
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putBoolean("lock", true);
             editor.commit();
         }
     }
 
-    private void startAlarm() {
-        manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        int interval = 10000;
 
-        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
-        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     protected void onStart() {
