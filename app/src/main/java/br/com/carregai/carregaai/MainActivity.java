@@ -1,5 +1,7 @@
 package br.com.carregai.carregaai;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +32,7 @@ import java.util.zip.Inflater;
 
 import fragments.DialogViagemExtra;
 import fragments.DialogWeek;
+import service.NotificationEventReceiver;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,7 +55,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTarifaTxt;
 
-    private boolean firstOpen;
+    private boolean lock;
+
+    private PendingIntent pendingIntent;
+    private AlarmManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,34 @@ public class MainActivity extends AppCompatActivity {
         mDiasView[6] = (TextView)findViewById(R.id.domingo);
 
         mTarifaTxt = (TextView)findViewById(R.id.txt_tarifa);
+
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        lock = sharedPref.getBoolean("lock", false);
+
+        Toast.makeText(this, "Lock: " +lock, Toast.LENGTH_LONG).show();
+
+        if(!lock){
+
+            NotificationEventReceiver.setupAlarm(getApplicationContext());
+
+
+/*            Intent alarmIntent = new Intent(this, AlarmReceiver.class);
+            pendingIntent = PendingIntent.getBroadcast(this, 0, alarmIntent, 0);
+
+            startAlarm();*/
+
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putBoolean("lock", true);
+            editor.commit();
+        }
+    }
+
+    private void startAlarm() {
+        manager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        int interval = 10000;
+
+        manager.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), interval, pendingIntent);
+        Toast.makeText(this, "Alarm Set", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -12,7 +12,6 @@ import android.support.v7.app.AlertDialog;
 public class DialogViagemExtra extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Use the Builder class for convenient dialog construction
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Configure o valor da viagem extra no menu Configurações.")
                 .setPositiveButton("Entendi", new DialogInterface.OnClickListener() {
