@@ -74,14 +74,8 @@
         <com.facebook.login.widget.LoginButton
             android:onClick="loginWithFacebook"
             android:id="@+id/login_fb"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
-
-        <ImageView
-            android:layout_marginLeft="8dp"
-            android:src="@mipmap/ic_google"
-            android:layout_width="32dp"
-            android:layout_height="32dp" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     
     <LinearLayout
