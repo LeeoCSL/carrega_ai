@@ -48,9 +48,17 @@
             android:hint="Password" />
     </android.support.design.widget.TextInputLayout>
 
+    <TextView
+        android:layout_below="@+id/input_password_register"
+        android:textStyle="bold"
+        android:layout_marginLeft="4dp"
+        android:text="Sua senha deve ter no mínimo 6 caracteres."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/btn_register"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/btn_blue"
         android:textColor="#ffffff"
         android:onClick="register"
