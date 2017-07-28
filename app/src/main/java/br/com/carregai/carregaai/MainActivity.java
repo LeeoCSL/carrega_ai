@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
@@ -98,7 +99,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    public void deepLinking(View v){
+        Uri uri = Uri.parse("https://apprpc.app.link/App");
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(intent);
+    }
 
     @Override
     protected void onStart() {
