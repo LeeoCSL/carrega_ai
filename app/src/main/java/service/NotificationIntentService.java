@@ -6,6 +6,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.WakefulBroadcastReceiver;
@@ -65,19 +67,18 @@ public class NotificationIntentService extends IntentService{
     }
 
     private void processStartNotification() {
-        // Do something. For example, fetch fresh data from backend to create a rich notification?
-
-        SharedPreferences sharedPref = getSharedPreferences(sp,Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         float saldo = sharedPref.getFloat("saldo_atual", 0);
 
+        Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         final NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setContentTitle("Scheduled Notification")
+        builder.setContentTitle("Atenção!")
                 .setAutoCancel(true)
-                .setColor(getResources().getColor(R.color.colorAccent))
-                .setContentText("Service" + saldo)
-                .setSmallIcon(R.drawable.ic_action_name);
+                .setSound(alarmSound)
+                .setContentText("Seu saldo é de apenas R$" +String.format("%.2f", saldo))
+                .setSmallIcon(R.mipmap.ic_launcher);
 
         PendingIntent pendingIntent = PendingIntent.getActivity(this,
                 NOTIFICATION_ID,

@@ -35,7 +35,9 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
 
-    private Button mValorDiario, mSaldoAtual, mValorRecarga, mTarifa;
+    private Button mValorDiario, mValorRecarga, mTarifa;
+
+    private TextView mSaldoAtual;
 
     final String[] items = {"Segunda-Feira", "Terça-Feira","Quarta-Feira","Quinta-Feira",
             "Sexta-Feira","Sábado","Domingo"};
@@ -52,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean lock;
 
-    private PendingIntent mPendingIntent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
         mValorDiario = (Button)findViewById(R.id.btn_valor_diario);
-        mSaldoAtual = (Button)findViewById(R.id.btn_saldo_atual);
+        mSaldoAtual = (TextView)findViewById(R.id.btn_saldo_atual);
         mValorRecarga = (Button)findViewById(R.id.btn_valor_recarga);
         mTarifa = (Button) findViewById(R.id.btn_tarifa);
 
@@ -84,10 +84,8 @@ public class MainActivity extends AppCompatActivity {
 
         mTarifaTxt = (TextView)findViewById(R.id.txt_tarifa);
 
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         lock = sharedPref.getBoolean("lock", false);
-
-        Toast.makeText(this, "Lock: " +lock, Toast.LENGTH_LONG).show();
 
         if(!lock){
 
@@ -122,20 +120,25 @@ public class MainActivity extends AppCompatActivity {
             DialogViagemExtra dialog = new DialogViagemExtra();
             dialog.show(fragmentManager, "viagens_extra");
         }else{
-            SharedPreferences sp = getPreferences(Context.MODE_PRIVATE);
+            SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
             float saldoAtual = sp.getFloat("saldo_atual", 0);
-            saldoAtual -= value;
-            SharedPreferences.Editor editor = sp.edit();
-            editor.putFloat("saldo_atual", saldoAtual);
-            editor.commit();
-            mSaldoAtual.setText("R$ " +String.format("%.2f", saldoAtual));
 
-            Toast.makeText(this, "Seu saldo foi atualizado. [Viagem Extra: R$ " +value+" ]", Toast.LENGTH_SHORT).show();
+            if(saldoAtual - value < 0){
+                Toast.makeText(this, "Você não tem saldo para essa viagem extra.", Toast.LENGTH_SHORT).show();
+            }else{
+                saldoAtual -= value;
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putFloat("saldo_atual", saldoAtual);
+                editor.commit();
+                mSaldoAtual.setText("R$ " +String.format("%.2f", saldoAtual));
+
+                Toast.makeText(this, "Seu saldo foi atualizado. [Viagem Extra: R$ " +value+" ]", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
     private void updateButtons(){
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         float valorDiario = sharedPref.getFloat("valor_diario", 0);
         mValorDiario.setText("R$ " +String.format("%.2f", valorDiario));
@@ -222,13 +225,20 @@ public class MainActivity extends AppCompatActivity {
 
                 mValorRecarga.setText("R$ " + String.format("%.2f", value));
 
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
 
                 editor.putFloat("saldo_atual", saldoFinal);
                 editor.putFloat("valor_recarga", value);
 
                 editor.commit();
+            }
+        });
+
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
             }
         });
 
@@ -253,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
 
                 float value = Float.parseFloat(input.getText().toString().replace(',','.'));
 
-                SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putFloat("valor_diario", value);
                 editor.commit();

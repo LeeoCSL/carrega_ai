@@ -8,8 +8,13 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.widget.TextView;
+
+import java.util.Calendar;
+import java.util.Locale;
 
 import br.com.carregai.carregaai.R;
 
@@ -17,13 +22,14 @@ import br.com.carregai.carregaai.R;
 public class DialogWeek extends DialogFragment {
 
     private TextView[] mDiasSemana;
+    private boolean mCheckeds[];
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 
-        final String[] items = {"Segunda-Feira", "Terça-Feira","Quarta-Feira","Quinta-Feira",
-                    "Sexta-Feira","Sábado","Domingo"};
+        final String[] items = {"segunda-feira", "terça-feira","quarta-Feira","quinta-Feira",
+                    "sexta-feira","sábado","domingo"};
 
         mDiasSemana = new TextView[items.length];
 
@@ -35,26 +41,28 @@ public class DialogWeek extends DialogFragment {
         mDiasSemana[5] = (TextView)getActivity().findViewById(R.id.sabado);
         mDiasSemana[6] = (TextView)getActivity().findViewById(R.id.domingo);
 
-        final boolean checkeds[] = new boolean[items.length];
+        mCheckeds = new boolean[items.length];
 
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
 
         for(int i = 0; i < items.length; i++){
-            String key = items[i].toLowerCase();
+            String key = items[i];
             boolean value = sharedPref.getBoolean(key, false);
 
-            checkeds[i] = value;
+            mCheckeds[i] = value;
         }
 
         AlertDialog.Builder builder =
                 new AlertDialog.Builder(getActivity());
         builder.setTitle("Dias de uso")
-        .setMultiChoiceItems(items, checkeds,
+        .setMultiChoiceItems(items, mCheckeds,
         		new DialogInterface.OnMultiChoiceClickListener() {
         	public void onClick(DialogInterface dialog, int item, boolean isChecked) {
                 String key = items[item].toLowerCase();
 
-                SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                mCheckeds[item] = isChecked;
+
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putBoolean(key, isChecked);
                 editor.commit();
@@ -66,14 +74,20 @@ public class DialogWeek extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 TextView v = (TextView)getActivity().findViewById(R.id.segunda_feira);
 
+                SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
+                SharedPreferences.Editor editor = sharedPref.edit();
+
                 for(int i = 0; i < items.length; i++){
-                    if(checkeds[i]){
+
+                    editor.putBoolean(items[i], mCheckeds[i]);
+                    editor.commit();
+
+                    if(mCheckeds[i]){
                         mDiasSemana[i].setTypeface(null, Typeface.BOLD);
                     }else{
                         mDiasSemana[i].setTypeface(null, Typeface.NORMAL);
                     }
                 }
-
                 dialog.dismiss();
             }
 
